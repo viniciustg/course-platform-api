@@ -1,0 +1,26 @@
+# Node.js
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Compilados TypeScript
+dist
+*.tsbuildinfo
+
+# Variáveis de ambiente
+.env
+
+# Logs
+logs
+*.log
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode
+
+# Docker (se usar mais tarde)
+docker-compose.override.yml
