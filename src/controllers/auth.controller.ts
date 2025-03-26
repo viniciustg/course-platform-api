@@ -22,3 +22,23 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     res.status(400).json({ error: err.message });
   }
 };
+
+export const refreshToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    // Captura o token de refresh do corpo da requisição
+    const { refreshToken } = req.body;
+
+    // Chama o serviço que valida o refresh e gera novos tokens
+    const result = await AuthService.refresh(refreshToken);
+
+    // Retorna os novos tokens para o usuário
+    res.status(200).json(result);
+  } catch (err: any) {
+    // Em caso de erro (ex: refresh token inválido ou expirado)
+    res.status(401).json({ error: err.message });
+  }
+};

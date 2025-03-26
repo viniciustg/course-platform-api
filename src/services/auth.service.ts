@@ -16,6 +16,12 @@ const users: User[] = [];
 
 let userIdCounter = 1;
 
+interface TokenPayload {
+  sub: number;
+  iat: number;
+  exp: number;
+}
+
 export class AuthService {
   // Registra um novo usuário
   static async register(email: string, password: string) {
@@ -72,5 +78,39 @@ export class AuthService {
       token,
       refreshToken
     };
+  }
+
+  static async refresh(refreshToken: string) {
+    try {
+      // Verifica o refresh token usando a chave secreta apropriada
+      const decoded = jwt.verify(
+        refreshToken,
+        authConfig.refreshToken.secret
+      ) as unknown as TokenPayload;
+
+      // Garante que o ID do usuário está disponível no token decodificado
+      const userId = decoded.sub;
+
+      // Gera um novo token de acesso
+      const token = jwt.sign(
+        { sub: userId },
+        authConfig.jwt.secret,
+        { expiresIn: authConfig.jwt.expiresIn }
+      );
+
+      // Gera um novo refresh token
+      const newRefreshToken = jwt.sign(
+        { sub: userId },
+        authConfig.refreshToken.secret,
+        { expiresIn: authConfig.refreshToken.expiresIn }
+      );
+
+      // Retorna os novos tokens
+      return { token, refreshToken: newRefreshToken };
+
+    } catch (err) {
+      // Se o token for inválido ou expirado, dispara erro
+      throw new Error('Refresh token inválido ou expirado');
+    }
   }
 }
