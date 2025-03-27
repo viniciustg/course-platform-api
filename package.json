@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/viniciustg/course-platform-api#readme",
   "dependencies": {
+    "@prisma/client": "^6.5.0",
     "bcryptjs": "^3.0.2",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2"
@@ -28,6 +29,7 @@
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.13.13",
+    "prisma": "^6.5.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.2"
   }
