@@ -9,8 +9,19 @@ datasource db {
 
 // Modelo de usuário
 model User {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
+  Course    Course[]
+}
+
+// Modelo de curso
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    Int
 }
