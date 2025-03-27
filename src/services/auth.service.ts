@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 // Importa o JWT e as configurações de segredo e tempo
 import jwt from 'jsonwebtoken';
 import authConfig from '../config/auth';
+import { prisma } from '../lib/prisma';
 
 // Define a estrutura de um usuário
 interface User {
@@ -26,7 +27,12 @@ export class AuthService {
   // Registra um novo usuário
   static async register(email: string, password: string) {
     // Verifica se o usuário já existe
-    const userExists = users.find(u => u.email === email);
+    const userExists = await prisma.user.findUnique({
+      where: {
+        email: email
+      }
+    });
+
     if (userExists) {
       throw new Error('Usuário já existe');
     }
@@ -34,14 +40,13 @@ export class AuthService {
     // Criptografa a senha
     const hashedPassword = await bcrypt.hash(password, 8);
 
-    // Cria e salva o usuário
-    const user: User = {
-      id: userIdCounter++,
-      email,
-      password: hashedPassword
-    };
-
-    users.push(user);
+    // Salva o usuário no banco de dados
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword
+      }
+    });
 
     return user;
   }
@@ -49,7 +54,12 @@ export class AuthService {
   // Autentica o usuário e retorna JWT + Refresh Token
   static async login(email: string, password: string) {
     // Procura o usuário
-    const user = users.find(u => u.email === email);
+    const user = await prisma.user.findUnique({
+      where: {
+        email: email
+      }
+    });
+
     if (!user) {
       throw new Error('Usuário não encontrado');
     }
