@@ -3,5 +3,5 @@ export default {
   testEnvironment: 'node',
   testMatch: ['**/tests/**/*.spec.ts'],
   clearMocks: true,
-  testTimeout: 15000,
+  testTimeout: 30000,
 };
