@@ -47,4 +47,4 @@ jobs:
         run: npx prisma migrate deploy
 
       - name: Rodar testes
-        run: echo "Testes ainda não implementados"
+        run: npm test

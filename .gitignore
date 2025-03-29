@@ -24,3 +24,5 @@ Thumbs.db
 
 # Docker (se usar mais tarde)
 docker-compose.override.yml
+
+coverage
