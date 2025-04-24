@@ -1,6 +1,6 @@
 # 🎓 Course Platform API
 
-API RESTful para gerenciamento de cursos, desenvolvida com TypeScript, Express e Prisma. Este projeto foi criado com o objetivo de praticar conceitos de arquitetura limpa, testes automatizados e integração com banco de dados utilizando o Prisma ORM.
+API RESTful para gerenciamento de cursos, desenvolvida com NodeJS, TypeScript, Express e Prisma. Este projeto foi criado com o objetivo de praticar conceitos de arquitetura limpa, testes automatizados e integração com banco de dados utilizando o Prisma ORM.
 
 ## 🚀 Tecnologias Utilizadas
 
